@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<head>
+<style>
+body {
+    text-align: center;
+    min-width: 500px; 
+}
+.center {
+    margin: 10px 0;
+    display: flex; justify-content: center;
+}
+</style>
+</head>
+<body>
+<h2>Bookstore</h2>
+
+<div id="bookList" class="center">
+    <!-- Book list will be displayed here -->
+</div>
+
+<div id="cart" class="center">
+    <h3>Shopping Cart</h3>
+    <ul id="cartItems">
+        <!-- Shopping cart items will be displayed here -->
+    </ul>
+    <p>Total: $<span id="totalPrice">0.00</span></p>
+</div>
+
+<script>
+// Array of book objects
+var books = [
+    { title: "Book 1", author: "Author 1", price: 10.00 },
+    { title: "Book 2", author: "Author 2", price: 15.00 },
+    { title: "Book 3", author: "Author 3", price: 20.00 }
+];
+
+// Function to display book list
+function displayBooks() {
+    var bookListDiv = document.getElementById("bookList");
+    bookListDiv.innerHTML = ""; // Clear previous content
+
+    books.forEach(function(book, index) {
+        var bookDiv = document.createElement("div");
+        bookDiv.innerHTML = "<p>" + book.title + " by " + book.author + " - $" + book.price + "</p>" +
+                            "<button onclick='addToCart(" + index + ")'>Add to Cart</button>";
+        bookListDiv.appendChild(bookDiv);
+    });
+}
+
+// Function to add a book to the shopping cart
+function addToCart(index) {
+    var selectedBook = books[index];
+    cart.push(selectedBook);
+    displayCart();
+}
+
+// Function to display the shopping cart
+function displayCart() {
+    var cartDiv = document.getElementById("cartItems");
+    var totalPriceSpan = document.getElementById("totalPrice");
+    cartDiv.innerHTML = ""; // Clear previous content
+    var totalPrice = 0;
+
+    cart.forEach(function(item) {
+        var listItem = document.createElement("li");
+        listItem.textContent = item.title;
+        cartDiv.appendChild(listItem);
+        totalPrice += item.price;
+    });
+
+    totalPriceSpan.textContent = totalPrice.toFixed(2);
+}
+
+// Array to hold items in the shopping cart
+var cart = [];
+
+// Initial display
+displayBooks();
+displayCart();
+</script>
+
+</body>
+</html>
